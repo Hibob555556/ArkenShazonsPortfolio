@@ -4,7 +4,7 @@ namespace CSharpMDGen
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             #region Demo
             // create our MDFile object
@@ -28,11 +28,11 @@ namespace CSharpMDGen
             MDGen.AddCodeBlock(intro, codeBlock);
 
             // create an unordered list
-            string[] items = { "Item 1", "Item 2", "Item 3" };
+            string[] items = ["Item 1", "Item 2", "Item 3"];
             var ul = MDGen.CreateUL(items, "Unordered List:", headingSize: 3);
 
             // create an ordered list
-            string[] items2 = { "Item 1", "Item 2", "Item 3" };
+            string[] items2 = ["Item 1", "Item 2", "Item 3"];
             var ol = MDGen.CreateOL(items2, "Ordered List:");
 
             // add our ordered list to the advanced section
@@ -40,8 +40,8 @@ namespace CSharpMDGen
             MDGen.AddListElement(advanced, ol, ordered: true);
 
             // create a table
-            string[] headers = { "Header 1", "Header 2", "Header 3" };
-            int[] alignment = { 0, 1, 2 };
+            string[] headers = ["Left", "Center", "Right"];
+            int[] alignment = [0, 1, 2];
             string[,] rows = {
                 { "Column 1 Row 1", "Column 2 Row 1", "Column 3 Row 1" },
                 { "Column 1 Row 2", "Column 2 Row 2", "Column 3 Row 2" },
@@ -326,7 +326,7 @@ namespace CSharpMDGen
                     {
                         // if the padding is trailing, add it to the end of the section
                         if (trailing)
-                            section.Content = section.Content + "\n";
+                            section.Content += "\n";
                         // if the padding is not trailing, add it to the beginning of the section
                         else
                             section.Content = "\n" + section.Content;
@@ -555,7 +555,7 @@ namespace CSharpMDGen
                 Console.WriteLine("Writing to: " + path);
 
                 // create the file and write the information to it
-                using (StreamWriter writer = new StreamWriter(path))
+                using (StreamWriter writer = new(path))
                 {
                     // write the title of the file to the file
                     writer.WriteLine(file.Title);
