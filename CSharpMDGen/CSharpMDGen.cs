@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System;
+using System.Text;
 
 namespace CSharpMDGen
 {
@@ -28,7 +31,7 @@ namespace CSharpMDGen
         }
 
         // create an unordered list object
-        public static UL CreateUL(string[] items, string title = null!, string color = "Nothing!", string font = "Aria", int headingSize = 5, bool boldTitle = false)
+        public static UL CreateUL(string[] items, string title = null!, string color = "Nothing!", string font = "Arial", int headingSize = 5, bool boldTitle = false)
         {
             // write the user specified information to an instance of the UL object
             UL ul = new()
@@ -45,7 +48,7 @@ namespace CSharpMDGen
         }
 
         // create an ordered list object
-        public static OL CreateOL(string[] items, string title = null!, string color = "Nothing!", string font = "Arial")
+        public static OL CreateOL(string[] items, string title = null!, string color = "Nothing!", string font = "Arial", int headingSize = 5, bool boldTitle = false)
         {
             // write the user specified information to an instance of the UL object
             OL ol = new()
@@ -53,7 +56,9 @@ namespace CSharpMDGen
                 Items = items,
                 Title = title,
                 Color = color,
-                Font = font
+                Font = font,
+                HeadingSize = headingSize,
+                BoldTitle = boldTitle
             };
             // return our new UL object
             return ol;
@@ -82,7 +87,7 @@ namespace CSharpMDGen
             // create an instance of the Section object with the info passed into the function
             Section section = new()
             {
-                Title = $"### {title}",
+                Title = $"## {title}",
                 Color = color,
                 Font = font,
                 Content = content,
@@ -124,7 +129,7 @@ namespace CSharpMDGen
         }
 
         // add an unordered list to a section
-        public static bool AddUL(Section section, UL ul, bool smallTab = true, bool mdSafe = false)
+        public static bool AddUL(Section section, UL ul, bool smallTab = true, bool mdSafe = false, bool topPadding = false)
         {
             // define tab sizes (4 spaces and 2 spaces)
             const String TAB = "    ";
@@ -140,7 +145,9 @@ namespace CSharpMDGen
                     {
                         string tagOpen = ul.BoldTitle ? "<b>" : "";
                         string tagClose = ul.BoldTitle ? "</b>" : "";
-                        section.Content += $"\n<h{ul.HeadingSize}>{tagOpen}{ul.Title}{tagClose}</h{ul.HeadingSize}>\n\n";
+                        if (topPadding)
+                            section.Content += "\n\n";
+                        section.Content += $"<h{ul.HeadingSize}>{tagOpen}{ul.Title}{tagClose}</h{ul.HeadingSize}>\n\n";
                     }
 
                     // add the items in the unordered list to the section with the selected tab size
@@ -160,6 +167,7 @@ namespace CSharpMDGen
                             sb.AppendLine($"{tab}- {item}");
                         }
                     }
+                    sb.AppendLine("");
                     section.Content += sb.ToString();
                 }
                 catch
@@ -188,7 +196,7 @@ namespace CSharpMDGen
             return $"<span style=\"{style}\">";
         }
 
-        public static bool AddListElement(Section section, IListElement list, bool ordered, bool smallTab = true, bool mdSafe = false)
+        public static bool AddListElement(Section section, IListElement list, bool ordered, bool smallTab = true, bool mdSafe = false, bool padTitle = false, bool padBottom = false)
         {
             const string TAB = "    ";
             const string SMALL_TAB = "  ";
@@ -207,7 +215,10 @@ namespace CSharpMDGen
                 {
                     string tagOpen = list.BoldTitle ? "<b>" : "";
                     string tagClose = list.BoldTitle ? "</b>" : "";
-                    section.Content += $"\n<h{list.HeadingSize}>{tagOpen}{list.Title}{tagClose}</h{list.HeadingSize}>\n\n";
+                    if (padTitle)
+                        section.Content += $"\n  <h{list.HeadingSize}>{tagOpen}{list.Title}{tagClose}</h{list.HeadingSize}>\n\n";
+                    else
+                        section.Content += $"\n<h{list.HeadingSize}>{tagOpen}{list.Title}{tagClose}</h{list.HeadingSize}>\n\n";
                 }
 
                 // Add the list items
@@ -227,6 +238,9 @@ namespace CSharpMDGen
 
                     sb.AppendLine(line);
                 }
+
+                if(padBottom)
+                    sb.AppendLine("\n\n");
 
                 section.Content += sb.ToString();
                 return true;
@@ -469,6 +483,71 @@ namespace CSharpMDGen
             }
         }
 
+        public static Text CreateText(string text, string color = "Nothing!", string font = "Arial", int size = -1)
+        {
+            // write the user specified information to an instance of the Text object
+            Text textObj = new()
+            {
+                TextContent = text,
+                Color = color,
+                Font = font,
+                Size = size
+            };
+            // return our new Text object
+            return textObj;
+        }
+
+        public static bool AddText(Section section, Text text, bool mdSafe = false, bool bullet = false)
+        {
+            // if the section is not finalized, add the text to it
+            if (section.Finalized == false)
+            {
+                try
+                {
+                    // add the text to the section
+                    StringBuilder sb = new(section.Content);
+                    string style = BuildTextStyle(text.Font, text.Color, text.Size);
+                    string line;
+                    if (bullet)
+                        if (!mdSafe && !string.IsNullOrEmpty(style))
+                            line = $"- {style}{text.TextContent}</span>";
+                        else
+                            line = $"- {text.TextContent}";
+                    else
+                        if (!mdSafe && !string.IsNullOrEmpty(style))
+                            line = $"{style}{text.TextContent}</span>";
+                        else
+                            line = $"{text.TextContent}";
+                    sb.AppendLine(line);
+                    section.Content = sb.ToString();
+                }
+                catch
+                {
+                    // if there is an error adding the text to the section, print an error message
+                    Console.WriteLine("Error adding text to section");
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                // if the section is finalized, print an error message
+                Console.WriteLine("Section has already been finalized 467");
+                return false;
+            }
+        }
+
+        private static string BuildTextStyle(string font, string color, int size)
+        {
+            if (color == "Nothing!" && font == "Arial" && size == -1) return "<span>";
+
+            string style = "";
+            if (font != "Arial") style += $"font-family:{font};";
+            if (color != "Nothing!") style += $"color:{color};";
+            if (size != -1) style += $"font-size:{size}px;";
+            return $"<span style=\"{style}\">";
+        }
+
         // write the MDFile object to a file
         public static bool WriteToFile(MDFile file)
         {
@@ -613,6 +692,14 @@ namespace CSharpMDGen
     public class TableRow
     {
         public required string[] Entries { get; set; } // The entries in the rows
+    }
+
+    public class Text
+    {
+        public string? TextContent { get; set; } // The text content of the text object
+        public string? Color { get; set; } // The color of the text object
+        public string? Font { get; set; } // The font of the text object
+        public int Size { get; set; } // The size of the text object
     }
     #endregion
 }

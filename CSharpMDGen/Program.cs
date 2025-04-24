@@ -1,84 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CSharpMDGen
 {
-    class Program
+    class CSharpMDGen
     {
         public static void Main()
         {
-            #region Demo
-            // create our MDFile object
-            MDFile file = MDGen.Create();
+            // set the current directory to the one containing the file
+            Directory.SetCurrentDirectory("../../../");
+
+            string fileName = "sampleProg.cs";
+
+            // read in the csharp file
+            StreamReader reader = new($"./{fileName}");
+            string file = reader.ReadToEnd();
+            reader.Close();
+
+            // get the tree of the file
+            string className;
+            List<string> methodNames = [];
+            List<string> constructorNames = [];
+            List<Tuple<string, List<string>, List<string>>> classToMethods = []; // class, method, constructor
+            SyntaxTree tree = CSharpSyntaxTree.ParseText(file);
+
+            foreach (var classNode in tree.GetRoot().DescendantNodes().OfType<ClassDeclarationSyntax>())
+            {
+                className = classNode.Identifier.Text;
+
+                // Get all method declarations within this class
+                foreach (var method in classNode.Members.OfType<MethodDeclarationSyntax>())
+                {
+                    methodNames.Add(method.Identifier.Text);
+                }
+
+                foreach (var constructor in classNode.Members.OfType<ConstructorDeclarationSyntax>())
+                {
+                    constructorNames.Add(constructor.Identifier.Text);
+                }
+
+                classToMethods.Add(new Tuple<string, List<string>, List<string>>(className, [.. methodNames], [.. constructorNames]));
+                methodNames.Clear();
+                constructorNames.Clear();
+            }
+
+            // create a list of class names
+            List<string> names = [];
+            foreach (var tpl in classToMethods)
+                names.Add(tpl.Item1);
+
+            // create a markdown file
+            MDFile mdFile = MDGen.Create("CodeDocumentation", "Inventory System Documentation");
+
+            // create an introduction section
+            Section intro = MDGen.CreateSection("Introduction", $"- This file contains the documentation for the Inventory System file `{fileName}`.", "Arial");
+
+            // create an ordered list of classes
+            List<string> styleizedNames = [];
+            foreach (var name in names)
+                styleizedNames.Add($"`{name}`");
+            OL methods = MDGen.CreateOL([.. styleizedNames], "Classes:");
+            MDGen.AddListElement(intro, methods, ordered: true);
+            MDGen.AddSection(mdFile, intro);
 
             // create sections
-            var intro = MDGen.CreateSection("Introduction", "This is the introduction section.", "Arial");
-            var gettingStarted = MDGen.CreateSection("Getting Started", "This is the getting started section.", "Arial");
-            var advanced = MDGen.CreateSection("Advanced Topics", "This is the advanced topics section.", "Arial");
-            var tableSection = MDGen.CreateSection("Table", "", "Arial");
-            var coloredUL = MDGen.CreateSection("Colored Unordered List", "This section contains a colored unordered list.", "Arial");
+            List<Section> sections = [];
+            foreach (var name in names)
+                sections.Add(MDGen.CreateSection(name, $"- The following methods are contained within the `{name}` class:", "Arial"));
 
-            // create a code block
-            string code = "Console.WriteLine(\"Hello World!\");";
-            var codeBlock = MDGen.CreateCodeBlock(code, "csharp", "Hello World Example:");
+            // populate each section
+            foreach (var section in sections.ToArray())
+            {
+                List<string> classMethods = [];
+                List<string> classConstructors = [];
+                string cn = section.Title.Replace("## ", "").Trim();
+                foreach (var sec in classToMethods)
+                {
+                    if (sec.Item1 == cn)
+                    {
+                        foreach (var method in sec.Item2)
+                        {
+                            if (sec.Item1 == cn)
+                                classMethods.Add($"`{method}`");
+                        }
+                        foreach (var constructor in sec.Item3)
+                        {
+                            if (sec.Item1 == cn)
+                                classConstructors.Add($"`{constructor}`");
+                        }
+                    }
+                }
 
-            // add padding to the code block to make it easier to read
-            MDGen.AddCodeBlockPadding(codeBlock, false, 1);
+                // create lists from the methods and constructors
+                UL l = MDGen.CreateUL([.. classMethods.ToArray()], "Methods:", headingSize: 5);
+                UL l2 = MDGen.CreateUL([.. classConstructors.ToArray()], "Constructors:", headingSize: 5);
 
-            // add the code block to the intro section
-            MDGen.AddCodeBlock(intro, codeBlock);
+                // add the lists to a section
+                if (classMethods.Count > 0)
+                    MDGen.AddListElement(section, l, ordered: false, padBottom: true);
 
-            // create an unordered list
-            string[] items = ["Item 1", "Item 2", "Item 3"];
-            var ul = MDGen.CreateUL(items, "Unordered List:", headingSize: 3);
+                if (classConstructors.Count > 0)
+                {
+                    Text text = MDGen.CreateText($"The following constructors are contained within the `{cn}` class:");
+                    MDGen.AddText(section, text, bullet: true);
+                    MDGen.AddListElement(
+                        section, 
+                        l2, 
+                        ordered: false, 
+                        smallTab: false, 
+                        padTitle: true, 
+                        padBottom: true
+                    );
+                }
+                MDGen.AddSection(mdFile, section);
+            }
 
-            // create an ordered list
-            string[] items2 = ["Item 1", "Item 2", "Item 3"];
-            var ol = MDGen.CreateOL(items2, "Ordered List:");
-
-            // add our ordered list to the advanced section
-            MDGen.AddListElement(gettingStarted, ul, ordered: false);
-            MDGen.AddListElement(advanced, ol, ordered: true);
-
-            // create a table
-            string[] headers = ["Left", "Center", "Right"];
-            int[] alignment = [0, 1, 2];
-            string[,] rows = {
-                { "Column 1 Row 1", "Column 2 Row 1", "Column 3 Row 1" },
-                { "Column 1 Row 2", "Column 2 Row 2", "Column 3 Row 2" },
-                { "Column 1 Row 3", "Column 2 Row 3", "Column 3 Row 3" }
-            };
-            Table table = MDGen.CreateTable(headers, alignment, rows);
-
-            // add a table 
-            MDGen.AddTable(tableSection, table);
-
-            // add a colored unordered list
-            UL redUL = MDGen.CreateUL(["Item 1", "Item 2", "Item 3"], "Colored Unordered List:", "Red");
-            MDGen.AddListElement(coloredUL, redUL, ordered: false, smallTab: true);
-
-            // add padding to the end of each section to make it easier to read
-            MDGen.AddSectionPadding(intro, false, 1);
-            MDGen.AddSectionPadding(intro, true, 2);
-            MDGen.AddSectionPadding(gettingStarted, true, 2);
-            MDGen.AddSectionPadding(advanced, true, 2);
-
-            // add sections to file
-            MDGen.AddSection(file, intro);
-            MDGen.AddSection(file, gettingStarted);
-            MDGen.AddSection(file, advanced);
-            MDGen.AddSection(file, tableSection);
-            MDGen.AddSection(file, coloredUL);
-
-            // write our MDFile object to an MD file
-            var res = MDGen.WriteToFile(file);
-
-            // indicate if the creation was successful
-            Console.WriteLine(res ? "File created successfully" : "File creation failed");
-            #endregion
+            // write the file to disk
+            MDGen.WriteToFile(mdFile);
         }
     }
 }
