@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CSharpMDGen>
+	<!-- Options to configure the behavior of CSharpMDGen -->
+	<AutoDocOpts>
+		<StorageDir>
+			<![CDATA[C:\path\to\docs\folder]]>
+		</StorageDir>
+		<FileNames>
+			<file docId="InventoryProg">SampleProgDoc.md</file>
+			<file docId="DataManagementProg">SampleProg1Doc.md</file>
+		</FileNames>
+	</AutoDocOpts>
+	
+	<!-- The files to be parsed for documentation -->
+	<AutoDocFiles>
+		<file index="1" tag="inventory" docId="InventoryProg">SampleProg.cs</file>
+		<file index="2" tag="data_management" docId="DataManagementProg">SampleProg1.cs</file>
+	</AutoDocFiles>
+
+	<!-- A short comment about each file to add to the top of the respective doc for each file -->
+	<FileComments>
+		<FileComment index="1" docId="InventoryProg">This is a program that is used to manage our inventory system.</FileComment>
+		<FileComment index="2" docId="DataManagementProg">This is a program containing a few options that can be parsed through with the auto documentation library.</FileComment>
+	</FileComments>
+</CSharpMDGen>
