@@ -54,5 +54,7 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 
-#do not upload emsdk as it is LARGE
+# Web Assembly stuff
 emsdk/
+WebAsm/main.js
+WebAsm/main.wasm
