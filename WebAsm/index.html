@@ -1,48 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>C WASM Example</title>
+    <title>C WASM</title>
   </head>
   <body>
+    <!-- Page title -->
     <h1>WebAssembly from C</h1>
+
+    <!-- Create buttons for actions -->
     <button id="add-btn">Add 3 + 4</button>
     <button id="mult-btn">Multiply 3 * 4</button>
     <button id="fib-btn">Generate fibonacci numbers</button>
+
+    <!-- Create input to specify number of fib nums to generate -->
     <input id="fib-cnt" type="number" placeholder="# of fib nums to generate" />
+
+    <!-- create a simple paragraph section to output to -->
     <p id="output"></p>
 
     <script src="main.js"></script>
     <script>
       Module.onRuntimeInitialized = () => {
+        // import functions from c file
         const add = Module.cwrap("add", "number", ["number", "number"]);
         const mult = Module.cwrap("mult", "number", ["number", "number"]);
         const fib = Module.cwrap("fib", "number", ["number"]);
 
+        // watch the add button to see when it gets clicked
         document.getElementById("add-btn").onclick = () => {
+          // call our "c" function to add 2 numbers
           const result = add(3, 4);
+
+          // output the result to the paragraph tag
           document.getElementById("output").textContent = "Result: " + result;
         };
 
+        // watch out multiply button to see when it gets clicked
         document.getElementById("mult-btn").onclick = () => {
+          // call our "c" function to multiply 2 numbers
           const result = mult(3, 4);
+
+          // output the result to the paragraph tag
           document.getElementById("output").textContent = "Result: " + result;
         };
 
+        // watch the fibonacci button to see when it gets clicked
         document.getElementById("fib-btn").onclick = () => {
+          // get the number of values to generate from our html input
           const fibCount = document.getElementById("fib-cnt").value;
+
+          // ensure the specified value is valid
           const result = verifyFibNum(fibCount);
+
+          // check the result
           if (result === 0) {
+            // run if valid
+
+            // get the pointer to the result array with our fib nums
             const ptr = fib(fibCount); // pointer to array in WASM memory
 
             const result = [];
+
+            // iterate over memory and read each int
             for (let i = 0; i < fibCount; i++) {
+              // push the result to our 'result' array created earlier
               result.push(Module.HEAP32[(ptr >> 2) + i]); // Read each 32-bit int
             }
 
+            // set the output paragraph
             document.getElementById("output").textContent =
               "Fibonacci: " + result.join(", ");
+
           } else {
+            // decode result to string and set outputs
             if (result === 1)
               document.getElementById("output").textContent =
                 "Please specify a whole #";
@@ -59,9 +90,13 @@
 
         // functions
         function verifyFibNum(num) {
+          // check if it is a whole number
           if (num % 1 != 0) return 1;
+          // check if it is too big
           else if (num > 46) return 2;
+          // check if it is too small
           else if (num <= 0) return 3;
+          // it is okay if it gets here
           else return 0;
         }
       };
