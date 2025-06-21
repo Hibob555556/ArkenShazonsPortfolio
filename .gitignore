@@ -57,4 +57,4 @@ nunit-*.xml
 # Web Assembly stuff
 emsdk/
 WebAsm/main.js
-WebAsm/main.wasm
+*.wasm
