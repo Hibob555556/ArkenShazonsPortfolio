@@ -20,4 +20,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: list files
-      run: ls -lA
+      run: cd WDIOAutoTests; ls -lA
