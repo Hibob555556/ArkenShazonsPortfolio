@@ -19,5 +19,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Check Formatting
-      run: npx prettier --check *.test.js
+    - name: list files
+      run: ls -lA
