@@ -23,4 +23,4 @@ jobs:
     - name: print cwd
       run: pwd
     - name: show contents
-      run: ls -lA
+      run: cd ..; ls -lA
