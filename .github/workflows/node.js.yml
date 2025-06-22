@@ -22,4 +22,4 @@ jobs:
     steps:
     - name: Install dependencies
       run: npm install
-      working-directory: WDIOAutoTests
+      working-directory: ../WDIOAutoTests
