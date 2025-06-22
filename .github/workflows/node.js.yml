@@ -21,15 +21,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: navigation
-      uses: actions/setup-node@v4
-    - run: cd ./WDIOAutoTests
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm i
+      working-directory: ./WDIOAutoTests
     - run: npm audit --audit-level=critical
+      working-directory: ./WDIOAutoTests
     - run: npx prettier --check ./Tests/Specs/*.test.js
+      working-directory: ./WDIOAutoTests
     - run: npx prettier --check ./Tests/POMS/*.POM.js
+      working-directory: ./WDIOAutoTests
