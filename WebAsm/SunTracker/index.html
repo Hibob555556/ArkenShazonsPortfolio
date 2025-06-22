@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>C WASM Solar Calc</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <label>Calculate Elevation</label>
+    <button id="calc-elevation">Calculate</button>
+    <canvas id="solarChart" width="800" height="400"></canvas>
+    <p id="result"></p>
+  </body>
+  <script src="main.js"></script>
+  <script>
+    Module.onRuntimeInitialized = () => {
+      const getSolarElevation = Module.cwrap("get_solar_elevation", "number", [
+        "number",
+        "number",
+        "number",
+        "number",
+        "number",
+        "number",
+        "number",
+        "number",
+        "number",
+        "number",
+      ]);
+
+      let solarChart = null;
+
+      document.getElementById("calc-elevation").onclick = () => {
+        const latitude = 41.70461;
+        const longitude = -111.842028;
+        const year = 2025;
+        const month = 6;
+        const day = 21;
+        const sec = 0;
+        const alt = 1300;
+        const tz_off = -6;
+
+        const dataPoints = [];
+        const labels = [];
+
+        for (let hour = 0; hour < 24; hour++) {
+          for (let min = 0; min < 60; min += 10) {
+            const elevation = getSolarElevation(
+              latitude,
+              longitude,
+              year,
+              month,
+              day,
+              hour,
+              min,
+              sec,
+              alt,
+              tz_off
+            );
+            dataPoints.push(elevation);
+            labels.push(
+              `${hour.toString().padStart(2, "0")}:${min
+                .toString()
+                .padStart(2, "0")}`
+            );
+          }
+        }
+
+        const ctx = document.getElementById("solarChart").getContext("2d");
+
+        // If chart exists, update it
+        if (solarChart) {
+          solarChart.data.labels = labels;
+          solarChart.data.datasets[0].data = dataPoints;
+          solarChart.update();
+        } else {
+          // Otherwise, create the chart
+          solarChart = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "Solar Elevation (°)",
+                  data: dataPoints,
+                  borderColor: "orange",
+                  backgroundColor: "rgba(255, 165, 0, 0.2)",
+                  tension: 0.3,
+                  fill: true,
+                  pointRadius: 2,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: { display: true },
+                tooltip: { enabled: true },
+              },
+              scales: {
+                x: {
+                  title: { display: true, text: "Time of Day" },
+                },
+                y: {
+                  title: { display: true, text: "Elevation (degrees)" },
+                  min: -10,
+                  max: 90,
+                },
+              },
+            },
+          });
+        }
+      };
+    };
+  </script>
+</html>
