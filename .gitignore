@@ -58,3 +58,7 @@ nunit-*.xml
 emsdk/
 WebAsm/main.js
 *.wasm
+
+# node
+node_modules/
+package-lock.json
