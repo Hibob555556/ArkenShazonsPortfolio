@@ -22,4 +22,4 @@ jobs:
     - name: Install packages
       run: cd WDIOAutoTests; npm i
     - name: Check Test Formatting
-      run: npx prettier --check ./Tests/Specs/*.test.js
+      run: pwd; npx prettier --check ./Tests/Specs/*.test.js
