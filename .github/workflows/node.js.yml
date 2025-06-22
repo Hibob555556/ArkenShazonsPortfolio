@@ -23,3 +23,5 @@ jobs:
       run: cd WDIOAutoTests; npm i
     - name: Check Test Formatting
       run: cd WDIOAutoTests; npx prettier --check ./Tests/Specs/*.test.js
+    - name: Check Security (basic)
+      run: npm audit --audit-level=critical
