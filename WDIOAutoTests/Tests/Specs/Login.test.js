@@ -5,12 +5,12 @@ import Login from "../POMS/Login.POM.js";
 // normally information like this should be kept in a .env file
 // for this example they are hard coded so that we are not
 // uploading a .env file to the repo (that's bad practice)
-const user   = "tomsmith";
-const pass   = "SuperSecretPassword!";
+const user = "tomsmith";
+const pass = "SuperSecretPassword!";
 
 // declare consts to be used in the file that should be able to be easily changed
-const url    = "login";
-const secUrl = "secure"
+const url = "login";
+const secUrl = "secure";
 
 describe("The Internet", async () => {
   it("Step 1 | Should load the login page", async () => {
@@ -34,7 +34,7 @@ describe("The Internet", async () => {
   });
 
   it("Step 3 | Should not allow login with an invalid password", async () => {
-    // set the username and password 
+    // set the username and password
     await (await Login.usernameInput).setValue(user);
     await (await Login.passwordInput).setValue("BAD_PASS");
 
