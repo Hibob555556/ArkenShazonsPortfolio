@@ -11,16 +11,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: print cwd
-      run: pwd
-    - name: show contents
-      run: cd ..; ls -lA
+    - name: Check Formatting
+      run: npx prettier --check *.test.js
