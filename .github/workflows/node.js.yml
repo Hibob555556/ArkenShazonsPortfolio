@@ -22,6 +22,5 @@ jobs:
     steps:
     - name: print cwd
       run: pwd
-    - name: Install dependencies
-      run: npm install
-      working-directory: ../WDIOAutoTests
+    - name: show contents
+      run: ls -lA
