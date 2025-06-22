@@ -26,5 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm i
+    - name: Install dependencies
+      run: npm install
       working-directory: ./WDIOAutoTests
