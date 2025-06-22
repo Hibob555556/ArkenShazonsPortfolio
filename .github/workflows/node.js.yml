@@ -19,5 +19,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: list files
-      run: cd WDIOAutoTests; ls -lA
+    - name: Install packages
+      run: cd WDIOAutoTests; npm i
+    - name: Check Test Formatting
+      run: prettier --check ./Tests/Specs/*.test.js
