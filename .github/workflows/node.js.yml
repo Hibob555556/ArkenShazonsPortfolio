@@ -26,7 +26,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm i
+        working-directory: ./WDIOAutoTests
+    - run: cd ./WDIOAutoTests; npm i
       working-directory: ./WDIOAutoTests
     - run: npm audit --audit-level=critical
       working-directory: ./WDIOAutoTests
