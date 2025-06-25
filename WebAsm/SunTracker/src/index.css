@@ -1,0 +1,11 @@
+/* page layout */
+.contents {
+  display: flex;
+  flex-direction: column;
+}
+
+/* img styles */
+.sky-display img {
+  width: 100px;
+  height: 100px;
+}
