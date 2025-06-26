@@ -127,8 +127,8 @@ Module.onRuntimeInitialized = () => {
     );
 
     // display upper left in morning and upper right at night
-    if (elevation < 0 && time[3] < 12) displayMoon();
-    else if (elevation < 0 && time[3] > 12) displayMoon();
+    if (elevation < 0 && time[3] < 12) displayMoon(elevation);
+    else if (elevation < 0 && time[3] > 12) displayMoon(elevation);
     else if (elevation > 0) displaySun(elevation);
   };
   //#endregion
@@ -266,7 +266,8 @@ function displaySun(elevation = 0) {
 function displayMoon(elevation = 0) {
   skyCtx.clearRect(0, 0, skyDisplay.width, skyDisplay.height);
   drawNightSky();
-  skyCtx.drawImage(moon, 300, 0, 100, 100);
+  console.log([skyDisplay.height,elevation]);
+  skyCtx.drawImage(moon, 50, skyCtx.height - elevation);
 }
 
 function drawNightSky() {
