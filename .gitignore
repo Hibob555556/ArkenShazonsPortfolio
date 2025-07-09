@@ -62,3 +62,6 @@ WebAsm/*/main.js
 # node
 node_modules/
 package-lock.json
+
+# security stuff
+.env

@@ -1,0 +1,24 @@
+{
+  "name": "arkenshazonsportfolio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hibob555556/ArkenShazonsPortfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hibob555556/ArkenShazonsPortfolio/issues"
+  },
+  "homepage": "https://github.com/Hibob555556/ArkenShazonsPortfolio#readme",
+  "description": "",
+  "devDependencies": {
+    "express": "^5.1.0",
+    "typescript": "^5.8.3"
+  }
+}
