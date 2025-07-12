@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>C WASM Solar Calc</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./src/index.css" />
+  </head>
+  <body>
+    <div class="contents">
+      <div class="controls">
+        <label>Calculate Elevation</label>
+        <button id="calc-elevation">Gen Chart</button>
+        <button id="calc-curr-elevation">Get Current Elevation</button>
+        <button id="show-sky">Show Sky</button>
+        <input id="latitude" type="number" value="41" />
+        <input id="longitude" type="number" value="-111" />
+        <input id="altitude" type="number" value="1366" />
+      </div>
+      <div class="display">
+        <canvas id="solarChart" width="800" height="400"></canvas>
+        <p id="result"></p>
+        <canvas
+          class="sky-display"
+          id="sky-display"
+          width="600"
+          height="350"
+        ></canvas>
+      </div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+  <script src="./src/index.js" type="module"></script>
+</html>
