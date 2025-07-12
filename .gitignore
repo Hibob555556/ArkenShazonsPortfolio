@@ -61,4 +61,14 @@ WebAsm/*/main.js
 
 # node
 node_modules/
+<<<<<<< Updated upstream
 package-lock.json
+=======
+package-lock.json
+
+# security stuff
+.env
+
+# python
+venv
+>>>>>>> Stashed changes
