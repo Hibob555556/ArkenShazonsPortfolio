@@ -18,7 +18,7 @@ x_test = x_test.astype('float32') / 255.0
 x_train = x_train.reshape((-1, 28, 28, 1))
 x_test = x_test.reshape((-1, 28, 28, 1))
 
-# create the model
+# create the model and session saver
 model = keras.Sequential() 
 
 
@@ -35,6 +35,15 @@ conv_layer_32 = tf.keras.layers.Conv2D(
 
 conv_layer_64 = tf.keras.layers.Conv2D(
     filters=64,
+    kernel_size=(3, 3),
+    strides=(1, 1),
+    padding='same',
+    activation='relu',
+    input_shape=(28, 28, 1)
+)
+
+conv_layer_128 = tf.keras.layers.Conv2D(
+    filters=128,
     kernel_size=(3, 3),
     strides=(1, 1),
     padding='valid',
@@ -56,7 +65,13 @@ pooling_layer_32 = tf.keras.layers.MaxPooling2D(
 pooling_layer_64 = tf.keras.layers.MaxPooling2D(
     pool_size=(2, 2),
     strides=(2, 2),
-    padding='valid'
+    padding='same'
+)
+
+pooling_layer_128 = tf.keras.layers.MaxPooling2D(
+    pool_size=(2, 2),
+    strides=(2, 2),
+    padding='same'
 )
 # --------------------------------------------------
 
@@ -97,6 +112,8 @@ model.add(conv_layer_32)
 model.add(pooling_layer_32)
 model.add(conv_layer_64)
 model.add(pooling_layer_64)
+model.add(conv_layer_128)
+model.add(pooling_layer_128)
 model.add(flatten_layer)
 model.add(hidden_dense_layer)
 model.add(output_dense_layer)
