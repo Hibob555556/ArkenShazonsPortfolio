@@ -68,6 +68,9 @@ package-lock.json
 
 # python
 venv
+AI/CatVsDog/data/
+AI/CatVsDog/Lib
+AI/CatVsDog/Scripts
 
 # security stuff
 .env

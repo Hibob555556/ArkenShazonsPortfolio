@@ -1,4 +1,13 @@
 // import needed deps
+import e from "express";
 import NeoInterface from "./NeoInterfaceLib/NeoInterfaceLib.ts"
 
-const NEO = new NeoInterface();
+const app = e();
+
+app.get("/NearEarthObjects", (req,res) => {
+    NeoInterface.getObjects();
+});
+
+app.listen(8080, () => {
+    console.log("Listening on port 8080");
+});
