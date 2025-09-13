@@ -1,0 +1,1 @@
+char* DecToBin(int, char**);

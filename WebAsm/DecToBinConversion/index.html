@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Cayden Lunt" />
+    <meta
+      name="Description"
+      content="A demo of using WebAssembly to convert decimal to binary for some reason"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <title>DecToBin - WebAsm</title>
+    <script src="main.js"></script>
+    <script src="index.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Decimal To Binary</h1>
+      <h2>Utilizing Web Assembly</h2>
+    </header>
+
+    <main>
+      <form onsubmit="return false;">
+        <h3>Decimal To Binary Converter</h3>
+        <div class="spacer"></div>
+        <input
+          id="positive-num-input"
+          type="text"
+          maxlength="10"
+          pattern="\d*"
+          placeholder="Enter Positive Number"
+          oninput="
+    // remove non-digits
+    this.value = this.value.replace(/[^0-9]/g, '');
+    // remove leading zeros but allow a single '0'
+    this.value = this.value.replace(/^0+(?=\d)/, '');
+  "
+        />
+      </form>
+      <output>
+        <label class="output-label">Result: </label>
+        <p id="binary-num">00000000</p>
+      </output>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 - Cayden Lunt - Utah | United States</p>
+    </footer>
+  </body>
+</html>
