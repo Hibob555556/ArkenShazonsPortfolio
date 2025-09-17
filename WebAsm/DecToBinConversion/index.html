@@ -9,10 +9,11 @@
       content="A demo of using WebAssembly to convert decimal to binary for some reason"
     />
     <link rel="stylesheet" href="index.css" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <title>DecToBin - WebAsm</title>
     <script src="main.js"></script>
     <script src="index.js" defer></script>
+    <script src="nav.js" defer></script>
   </head>
 
   <body>
@@ -21,28 +22,66 @@
       <h2>Utilizing Web Assembly</h2>
     </header>
 
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+      &#9776;
+    </button>
+
+    <nav class="navbar" id="navbar">
+      <div class="menu">
+        <span class="top menu-item">
+          <a href="#dec_to_bin" id="decToBinLink">Decimal To Binary</a>
+        </span>
+        <span class="menu-item">
+          <a href="#bin_to_dec" id="binToDecLink">Binary To Decimal</a>
+        </span>
+      </div>
+    </nav>
+
     <main>
-      <form onsubmit="return false;">
-        <h3>Decimal To Binary Converter</h3>
-        <div class="spacer"></div>
-        <input
-          id="positive-num-input"
-          type="text"
-          maxlength="10"
-          pattern="\d*"
-          placeholder="Enter Positive Number"
-          oninput="
-    // remove non-digits
-    this.value = this.value.replace(/[^0-9]/g, '');
-    // remove leading zeros but allow a single '0'
-    this.value = this.value.replace(/^0+(?=\d)/, '');
-  "
-        />
-      </form>
-      <output>
-        <label class="output-label">Result: </label>
-        <p id="binary-num">00000000</p>
-      </output>
+      <!-- Decimal to Binary Screen -->
+      <div id="decToBinScreen" class="screen">
+        <form onsubmit="return false;">
+          <h3>Decimal To Binary Converter</h3>
+          <div class="spacer"></div>
+          <input
+            id="positive-num-input"
+            type="text"
+            maxlength="10"
+            pattern="\d*"
+            placeholder="Enter Positive Number"
+            oninput="
+              this.value = this.value.replace(/[^0-9]/g, '');
+              this.value = this.value.replace(/^0+(?=\d)/, '');
+            "
+          />
+        </form>
+        <output>
+          <label class="output-label">Result: </label>
+          <p id="binary-num">00000000</p>
+        </output>
+      </div>
+
+      <!-- Binary to Decimal Screen -->
+      <div id="binToDecScreen" class="screen" style="display: none;">
+        <form onsubmit="return false;">
+          <h3>Binary To Decimal Converter</h3>
+          <div class="spacer"></div>
+          <input
+            id="binary-input"
+            type="text"
+            maxlength="32"
+            pattern="[0-1]*"
+            placeholder="Enter Binary Number"
+            oninput="
+              this.value = this.value.replace(/[^01]/g, '');
+            "
+          />
+        </form>
+        <output>
+          <label class="output-label">Result: </label>
+          <p id="decimal-num">0</p>
+        </output>
+      </div>
     </main>
 
     <footer>

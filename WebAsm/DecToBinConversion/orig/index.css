@@ -1,0 +1,240 @@
+/* ---------------- Dark / Light Mode ---------------- */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1d1d1d;
+    color: #f1f1f1;
+  }
+  header {
+    background-color: #0f0f0f80;
+  }
+  main form input {
+    background-color: #2f2f2f;
+    color: #f1f1f1;
+    font-size: large;
+  }
+  main form input::placeholder {
+    color: #f1f1f1ab;
+    font-size: large;
+  }
+  nav {
+    background-color: #0f0f0f80;
+  }
+  nav a {
+    color: #f1f1f1;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #f1f1f1;
+    color: #1d1d1d;
+  }
+  header {
+    background-color: #0f0f0f80;
+    box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+  }
+  main form, output {
+    background-color: #0f0f0f80;
+  }
+  main form input {
+    background-color: #ffffff36;
+    color: #1d1d1d;
+    font-size: large;
+  }
+  main form input::placeholder {
+    color: #1d1d1d;
+    font-size: large;
+  }
+  main output p {
+    background-color: #ffffff80;
+  }
+  nav a {
+    color: #1d1d1d;
+  }
+}
+
+/* ---------------- Reset & Layout ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  position: relative;
+  height: fit-content;
+}
+
+header > h1, header > h2 {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+header > h2 {
+  font-size: medium;
+}
+
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding-top: 12vh;
+}
+
+main form input {
+  width: 250px;
+  height: 45px;
+  text-align: center;
+  border: 2px solid rgba(0,0,0,0.658);
+  border-radius: 5px;
+  margin: 15px 0;
+  box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+}
+
+main form h3 {
+  font-size: xx-large;
+}
+
+main output .output-label {
+  font-size: xx-large;
+}
+
+main output p {
+  border: rgb(0 0 0 / 40%) 1px solid;
+  padding: 5px;
+  margin: 15px;
+  font-size: xx-large;
+  box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.75);
+}
+
+.spacer {
+  height: 1px;
+  width: 75%;
+  margin: 12px 0;
+  background-color: white;
+}
+
+main output {
+  width: 45rem;
+  align-items: center;
+  border-radius: 7px;
+}
+
+footer {
+  margin-top: auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* ---------------- Sidebar / Navbar ---------------- */
+.navbar {
+  background-color: #0f0f0f80;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  transform: translateX(0); /* visible by default */
+}
+
+.navbar.hide {
+  transform: translateX(-100%);
+}
+
+.navbar .menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 80px;
+}
+
+.navbar a {
+  display: block;
+  padding: 1rem 0;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+}
+
+.navbar a:hover {
+  transform: scale(1.2);
+}
+
+/* Hamburger button */
+.menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1100;
+  width: 50px;
+  height: 50px;
+  font-size: 2em;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* ---------------- Responsive ---------------- */
+@media screen and (max-width: 1170px) {
+  .screen {
+    max-width: 28rem;
+  }
+}
+
+@media screen and (max-width: 914px) {
+  /* When sidebar is shown (i.e., no .hide class), make it solid */
+  .navbar:not(.hide) {
+    background-color: #0f0f0f; /* solid black */
+  }
+}
+
+.spacer {
+  text-align: center;
+  justify-self: center;
+}
+
+.top {
+  margin-top: 14px;
+  border-top: #2f2f2f solid 1px;
+}
+
+/* ---------------- Screen Wrapper ---------------- */
+.screen {
+  width: 45rem;
+  align-items: center;
+  border-radius: 7px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make sure output inside the screen keeps its style */
+.screen output {
+  width: 100%;
+  border-radius: 7px;
+  margin-top: 15px;
+}
+
+.screen {
+  background-color: #0f0f0f80; /* dark mode default */
+}
