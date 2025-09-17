@@ -1,1 +1,215 @@
-.navbar,body{flex-direction:column;display:flex}main form input,main output p{box-shadow:3px 4px 5px 0 rgba(0,0,0,.75)}.navbar a,.spacer,footer,main,main form input{text-align:center}.navbar,.screen,body,main{display:flex}@media (prefers-color-scheme:dark){body,nav a{color:#f1f1f1}body{background-color:#1d1d1d}header,nav{background-color:#0f0f0f80}main form input{background-color:#2f2f2f;color:#f1f1f1;font-size:large}main form input::placeholder{color:#f1f1f1ab;font-size:large}}@media (prefers-color-scheme:light){header,main form,output{background-color:#0f0f0f80}body,nav a{color:#1d1d1d}body{background-color:#f1f1f1}header{box-shadow:3px 4px 5px 0 rgba(0,0,0,.75)}main form input{background-color:#ffffff36;color:#1d1d1d;font-size:large}main form input::placeholder{color:#1d1d1d;font-size:large}main output p{background-color:#ffffff80}}main form h3,main output .output-label,main output p{font-size:xx-large}*{margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif}body,html{height:100%}body{min-height:100vh}header{position:relative;height:fit-content}header>h1,header>h2{text-align:center;padding-bottom:15px}header>h2{font-size:medium}main{flex:1 0 auto;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:12vh}main form input{width:250px;height:45px;border:2px solid rgba(0,0,0,.658);border-radius:5px;margin:15px 0}main output p{border:1px solid;padding:5px;margin:15px}.spacer{height:1px;width:75%;margin:12px 0;background-color:#fff}main output{width:45rem;align-items:center;border-radius:7px}footer{margin-top:auto;padding:1rem}.navbar{background-color:#0f0f0f80;width:200px;position:fixed;top:0;left:0;bottom:0;align-items:flex-start;transition:transform .3s;z-index:1000;transform:translateX(0)}.navbar.hide{transform:translateX(-100%)}.navbar .menu{display:flex;flex-direction:column;width:100%;margin-top:80px}.navbar a{display:block;padding:1rem 0;text-decoration:none;font-weight:600}.navbar a:hover{transform:scale(1.2)}.menu-toggle{position:fixed;top:10px;left:10px;z-index:1100;width:50px;height:50px;font-size:2em;background:0 0;border:none;color:#fff;cursor:pointer}@media screen and (max-width:1170px){.screen{max-width:28rem}}@media screen and (max-width:914px){.navbar:not(.hide){background-color:#0f0f0f}}.spacer{justify-self:center}.top{margin-top:14px;border-top:1px solid #2f2f2f}.screen{width:45rem;align-items:center;border-radius:7px;padding:20px;flex-direction:column;background-color:#0f0f0f80}.screen output{width:100%;border-radius:7px;margin-top:15px}
+.navbar,
+body {
+  flex-direction: column;
+  display: flex;
+}
+main form input,
+main output p {
+  box-shadow: 3px 4px 5px 0 rgba(0, 0, 0, 0.75);
+}
+.navbar a,
+.spacer,
+footer,
+main,
+main form input {
+  text-align: center;
+}
+.navbar,
+.screen,
+body,
+main {
+  display: flex;
+}
+@media (prefers-color-scheme: dark) {
+  body,
+  nav a {
+    color: #f1f1f1;
+  }
+  body {
+    background-color: #1d1d1d;
+  }
+  header,
+  nav {
+    background-color: #0f0f0f80;
+  }
+  main form input {
+    background-color: #2f2f2f;
+    color: #f1f1f1;
+    font-size: large;
+  }
+  main form input::placeholder {
+    color: #f1f1f1ab;
+    font-size: large;
+  }
+}
+@media (prefers-color-scheme: light) {
+  header,
+  main form,
+  output {
+    background-color: #0f0f0f80;
+  }
+  body,
+  nav a {
+    color: #1d1d1d;
+  }
+  body {
+    background-color: #f1f1f1;
+  }
+  header {
+    box-shadow: 3px 4px 5px 0 rgba(0, 0, 0, 0.75);
+  }
+  main form input {
+    background-color: #ffffff36;
+    color: #1d1d1d;
+    font-size: large;
+  }
+  main form input::placeholder {
+    color: #1d1d1d;
+    font-size: large;
+  }
+  main output p {
+    background-color: #ffffff80;
+  }
+}
+main form h3,
+main output .output-label,
+main output p {
+  font-size: xx-large;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+body,
+html {
+  height: 100%;
+}
+body {
+  min-height: 100vh;
+}
+header {
+  position: relative;
+  height: fit-content;
+}
+header > h1,
+header > h2 {
+  text-align: center;
+  padding-bottom: 15px;
+}
+header > h2 {
+  font-size: medium;
+}
+main {
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 12vh;
+}
+main form input {
+  width: 250px;
+  height: 45px;
+  border: 2px solid rgba(0, 0, 0, 0.658);
+  border-radius: 5px;
+  margin: 15px 0;
+}
+main output p {
+  border: 1px solid;
+  padding: 5px;
+  margin: 15px;
+}
+.spacer {
+  height: 1px;
+  width: 75%;
+  margin: 12px 0;
+  background-color: #fff;
+}
+main output {
+  width: 45rem;
+  align-items: center;
+  border-radius: 7px;
+}
+footer {
+  margin-top: auto;
+  padding: 1rem;
+}
+.navbar {
+  background-color: #0f0f0f80;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  align-items: flex-start;
+  transition: transform 0.3s;
+  z-index: 1000;
+  transform: translateX(0);
+}
+.navbar.hide {
+  transform: translateX(-100%);
+}
+.navbar .menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 80px;
+}
+.navbar a {
+  display: block;
+  padding: 1rem 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+.navbar a:hover {
+  transform: scale(1.2);
+}
+.menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1100;
+  width: 50px;
+  height: 50px;
+  font-size: 2em;
+  background: 0 0;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+@media screen and (max-width: 1170px) {
+  .screen {
+    max-width: 28rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .screen {
+    max-width: 20rem;
+  }
+}
+@media screen and (max-width: 914px) {
+  .navbar:not(.hide) {
+    background-color: #0f0f0f;
+  }
+}
+.spacer {
+  justify-self: center;
+}
+.top {
+  margin-top: 14px;
+  border-top: 1px solid #2f2f2f;
+}
+.screen {
+  width: 45rem;
+  align-items: center;
+  border-radius: 7px;
+  padding: 20px;
+  flex-direction: column;
+  background-color: #0f0f0f80;
+}
+.screen output {
+  width: 100%;
+  border-radius: 7px;
+  margin-top: 15px;
+}
