@@ -69,6 +69,26 @@ venv
 AI/CatVsDog/data/
 AI/CatVsDog/Lib
 AI/CatVsDog/Scripts
+AI/WeatherPrediction/.pytest_cache/
+AI/WeatherPrediction/etc
+AI/WeatherPrediction/Include
+AI/WeatherPrediction/Lib
+AI/WeatherPrediction/Scripts
+AI/WeatherPrediction/share
+AI/WeatherPrediction/src/__pycache__/
+AI/CloudRecognition/Data/
+AI/CloudRecognition/archive/
+AI/CloudRecognition/Lib/
+AI/CloudRecognition/Include/
+AI/CloudRecognition/Scripts/
+AI/CloudRecognition/share/
+AI/TimeSeriesDataNormalization/Lib/
+AI/TimeSeriesDataNormalization/Scripts/
+AI/TimeSeriesDataNormalization/Include/
+AI/TimeSeriesDataNormalization/.pytest_cache/
+AI/TimeSeriesDataNormalization/__pycache__/
+AI/CatVsDog/Include/
+AI/CatVsDog/Scripts/
 
 # security stuff
 .env
