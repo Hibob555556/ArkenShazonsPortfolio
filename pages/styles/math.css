@@ -1,0 +1,129 @@
+:root {
+  --off-white: #e3e3e3;
+  --dark: #1f1f1f;
+  --dark-bg: #111;
+  --light-bg: #333;
+  --white-opaque: #e3e3e359;
+  --dark-opaque: #1f1f1f52;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--dark-bg);
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  font-size: larger;
+  padding: 20px;
+  background-color: var(--dark-bg);
+  margin-bottom: 2rem;
+  color: var(--off-white);
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
+
+h1 {
+  border-bottom: 1px solid var(--white-opaque);
+  grid-column-start: 2;
+  grid-column-end: 3;
+  padding-bottom: 5px;
+}
+
+a {
+    color: var(--off-white);
+    text-decoration: underline;
+}
+
+sub {
+  margin: 8px;
+  color: var(--white-opaque);
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.tile {
+  max-width: 1200px;
+  width: 100%;
+  background-color: var(--dark-bg);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  color: var(--off-white);
+}
+
+.tile h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.tile p,
+.tile li,
+.tile pre {
+  margin-bottom: 10px;
+}
+
+.tile pre {
+  background-color: var(--light-bg);
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.tile ul,
+.tile ol {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--dark);
+    color: var(--off-white);
+  }
+  .tile pre {
+    background-color: var(--light-bg);
+  }
+  header {
+    background-color: var(--dark-bg);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: var(--off-white);
+    color: var(--dark);
+  }
+  .tile {
+    color: var(--dark);
+    background-color: var(--white-opaque);
+  }
+  .tile pre {
+    background-color: var(--off-white);
+  }
+  header {
+    background-color: var(--dark-bg);
+  }
+  h1 {
+    color: var(--off-white);
+  }
+}

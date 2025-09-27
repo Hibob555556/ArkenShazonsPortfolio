@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/math.css" />
+    <title>ArkenMath</title>
+  </head>
+  <body>
+    <header>
+      <h1>ArkenMath</h1>
+      <sub>Cayden Lunt</sub>
+    </header>
+
+    <main>
+      <div class="tile">
+        <p>
+          <strong><a href="https://github.com/Hibob555556/math" target="_blank">ArkenMath</a></strong> is a custom C# library for
+          arbitrary-precision integer arithmetic. It allows you to perform
+          mathematical operations on integers of virtually unlimited size,
+          beyond the limits of built-in numeric types. This project is a
+          hands-on exploration of low-level math operations, unit testing, and
+          CI/CD workflows in C#.
+        </p>
+
+        <h2>Features</h2>
+        <ul>
+          <li>Addition and subtraction of arbitrarily large integers</li>
+          <li>Supports positive and negative numbers</li>
+          <li>
+            Internal representation using arrays of 32-bit limbs
+            (<code>uint[]</code>)
+          </li>
+          <li>Absolute value and comparison methods</li>
+          <li>
+            Fully tested with MSTest, including new tests for updated BigInteger
+            features
+          </li>
+          <li>Configured for CI/CD via GitHub Actions</li>
+        </ul>
+
+        <h2>Installation</h2>
+        <ol>
+          <li>
+            Clone the repository:
+            <pre><code>git clone https://github.com/yourusername/ArkenMath.git
+cd ArkenMath</code></pre>
+          </li>
+          <li>Open the project in Visual Studio 2022 or later.</li>
+          <li>
+            Restore NuGet packages (if applicable):
+            <pre><code>dotnet restore</code></pre>
+          </li>
+        </ol>
+
+        <h2>Usage</h2>
+        <pre><code>using ArkenMath;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var a = new BigInteger(new uint[] { 5 }, 1);  // +5
+        var b = new BigInteger(new uint[] { 3 }, -1); // -3
+
+        var result = a.Add(b); // internally handles subtraction
+        Console.WriteLine(result); // Output: 2
+    }
+}</code></pre>
+
+        <h2>Running the Demo Program</h2>
+        <pre><code>cd ArkenMath
+dotnet run --project .\Program.csproj</code></pre>
+        <p>
+          The program will prompt you to enter two integers, perform
+          addition/subtraction, and display the result.
+        </p>
+
+        <h2>Running Tests</h2>
+        <pre><code>cd tests
+dotnet test BigIntegerTests.csproj</code></pre>
+        <p>
+          Make sure your test project references the
+          <code>ArkenMath</code> library via a
+          <code>&lt;ProjectReference&gt;</code> in its
+          <code>.csproj</code> file.
+        </p>
+
+        <h2>Contributing</h2>
+        <p>Feel free to submit pull requests or open issues.</p>
+
+        <h2>License</h2>
+        <p>This project is open source and available under the MIT License.</p>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2025 ArkenMath</p>
+    </footer>
+  </body>
+</html>
